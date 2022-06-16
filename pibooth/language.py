@@ -80,7 +80,7 @@ DEFAULT = {
         'oops': "Maldición! Algo salió mal",
     },
     'ca': {
-        'intro': "Foto",
+        'intro': "Vull una foto!",
         'intro_print': "Imprimir",
         'choose': "Tria",
         '1': "1 Foto",
