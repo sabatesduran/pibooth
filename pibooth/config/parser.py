@@ -63,7 +63,7 @@ DEFAULT = odict((
             ("background",
                 ((0, 0, 0),
                  "Background RGB color or image path",
-                 None, None)),
+                 "Background RGB color", (0, 0, 0))),
             ("font",
                 ('Amatic-Bold',
                  "Font name or file path used for app texts",
