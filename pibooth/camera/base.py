@@ -17,12 +17,13 @@ class BaseCamera(object):
         self._captures = []
 
         self.resolution = None
+        self.full_resolution = False
         self.delete_internal_memory = False
         self.preview_rotation, self.capture_rotation = (0, 0)
         self.preview_iso, self.capture_iso = (100, 100)
         self.preview_flip, self.capture_flip = (False, False)
 
-    def initialize(self, iso, resolution, rotation=0, flip=False, delete_internal_memory=False):
+    def initialize(self, iso, resolution, rotation=0, flip=False, delete_internal_memory=False, full_resolution=False):
         """Initialize the camera.
         """
         if not isinstance(rotation, (tuple, list)):
@@ -34,6 +35,7 @@ class BaseCamera(object):
                 raise ValueError(
                     "Invalid {} camera rotation value '{}' (should be 0, 90, 180 or 270)".format(name, rotation))
         self.resolution = resolution
+        self.full_resolution = full_resolution
         self.capture_flip = flip
         if not isinstance(iso, (tuple, list)):
             iso = (iso, iso)
@@ -67,8 +69,11 @@ class BaseCamera(object):
         in order to fit to the defined window.
         """
         rect = self._window.get_rect(absolute=True)
-        res = sizing.new_size_keep_aspect_ratio(self.resolution,
-                                                (rect.width - 2 * self._border, rect.height - 2 * self._border))
+        # With borders
+        ratio = (rect.width - 2 * self._border, rect.height - 2 * self._border)
+        if self.full_resolution:
+            ratio = (rect.width, rect.height)
+        res = sizing.new_size_keep_aspect_ratio(self.resolution, ratio)
         return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
 
     def build_overlay(self, size, text, alpha):
