@@ -191,7 +191,7 @@ DEFAULT = odict((
             ("full_resolution",
                 (False,
                  "Use full screen for the preview (overwrites the resolution parameter)",
-                 None, None)),
+                 "Full resolution",  ['True', 'False'])),
             ("delete_internal_memory",
                 (False,
                  "Delete captures from camera internal memory (when applicable)",
